@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description"
+    content="Algo Vault Shoe Collection — Interactive e-commerce demo by The Algothrim (Gaurav Kumar). Dynamic sliders, 3D-style layouts, and responsive design." />
+  <meta name="author" content="Gaurav Kumar" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://algo-vault-shoe-store.vercel.app" />
+
+  <link rel="shortcut icon" href="assets/img/shoe/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" crossorigin="" />
+  <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/shoe.css" />
+  <title>Algo Vault | Shoe Collection</title>
+    <!-- Cookie Consent + Analytics -->
+    <script src="assets/js/consent.js"></script>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-nav">Skip to content</a>
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="nav__logo">ALGO VAULT</a>
+      <div class="nav__menu" id="nav-menu">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="#" class="nav__link" id="nav-sneakers">Sneakers</a>
+          </li>
+          <li class="nav__item">
+            <a href="#" class="nav__link" id="nav-boots">Boots</a>
+          </li>
+          <li class="nav__item">
+            <a href="#" class="nav__link" id="nav-limited">Limited</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="https://thealgothrim.com" class="nav__link nav__exit" target="_blank" rel="noopener noreferrer">EXIT VAULT</a>
+          </li>
+        </ul>
+        <button class="nav__close" id="nav-close" aria-label="Close navigation">
+          <i class="ri-close-line" aria-hidden="true"></i>
+        </button>
+      </div>
+      <button class="nav__toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <i class="ri-apps-2-fill" aria-hidden="true"></i>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="home">
+      <div class="home__container container">
+        <div class="home__data">
+          <h2 class="home__subtitle" id="shoe-brand">BRAND</h2>
+          <h1 class="home__title" id="shoe-name">LOADING...</h1>
+          <p class="home__description" id="shoe-desc">
+            Collection loading...
+          </p>
+          <a href="#" class="home__button" id="buy-btn">VIEW PAIR</a>
+        </div>
+
+        <div class="home__images">
+          <div class="home__circle" id="bg-circle"></div>
+          <div class="home__swiper swiper">
+            <div class="swiper-wrapper" id="swiper-wrapper"></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+        <div class="home__social">
+          <a href="https://www.instagram.com/thealgothrim/" target="_blank" rel="noopener noreferrer" class="home__social-link">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="https://www.youtube.com/@Algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link">
+            <i class="ri-youtube-fill"></i>
+          </a>
+          <a href="https://x.com/algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="image-modal" role="dialog" aria-modal="true" aria-label="Shoe image viewer" aria-hidden="true">
+    <div class="modal__blur-bg"></div>
+    <div class="modal__content-image">
+      <button class="modal__close" id="close-image-modal" aria-label="Close image viewer">
+        <i class="ri-close-line" aria-hidden="true"></i>
+      </button>
+      <img src="" alt="Shoe preview" class="modal__img-display" id="modal-img" />
+      <h3 class="modal__img-title" id="modal-img-title">SHOE NAME</h3>
+    </div>
+  </div>
+
+  <div class="modal" id="category-modal" role="dialog" aria-modal="true" aria-label="Browse category" aria-hidden="true">
+    <div class="modal__blur-bg"></div>
+    <div class="modal__box">
+      <div class="modal__header">
+        <h3 class="modal__title" id="category-title">CATEGORY</h3>
+        <button class="modal__close-box" id="close-cat-modal" aria-label="Close category browser">
+          <i class="ri-close-line" aria-hidden="true"></i>
+        </button>
+      </div>
+      <ul class="modal__list" id="category-list"></ul>
+    </div>
+  </div>
+
+  <script src="assets/js/swiper-bundle.min.js"></script>
+  <script src="assets/js/shoe.js"></script>
+</body>
+
+</html>
