@@ -11,9 +11,13 @@
   <meta name="robots" content="noindex, follow" />
   <link rel="canonical" href="https://algo-vault-shoe-store.vercel.app" />
 
+  <link rel="preload" href="assets/img/shoe/shoe-1.webp" as="image" type="image/webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins&family=Syncopate:wght@400;700&display=swap" />
   <link rel="shortcut icon" href="assets/img/shoe/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#0a0a0a" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" crossorigin="" />
+  <link rel="stylesheet" href="assets/css/remixicon.min.css" />
   <link rel="stylesheet" href="assets/css/swiper-bundle.min.css" />
   <link rel="stylesheet" href="assets/css/shoe.css" />
   <title>Algo Vault | Shoe Collection</title>
@@ -29,13 +33,13 @@
       <div class="nav__menu" id="nav-menu">
         <ul class="nav__list">
           <li class="nav__item">
-            <a href="#" class="nav__link" id="nav-sneakers">Sneakers</a>
+            <button class="nav__link" id="nav-sneakers">Sneakers</button>
           </li>
           <li class="nav__item">
-            <a href="#" class="nav__link" id="nav-boots">Boots</a>
+            <button class="nav__link" id="nav-boots">Boots</button>
           </li>
           <li class="nav__item">
-            <a href="#" class="nav__link" id="nav-limited">Limited</a>
+            <button class="nav__link" id="nav-limited">Limited</button>
           </li>
 
           <li class="nav__item">
@@ -56,12 +60,12 @@
     <section class="home">
       <div class="home__container container">
         <div class="home__data">
-          <h2 class="home__subtitle" id="shoe-brand">BRAND</h2>
+          <p class="home__subtitle" id="shoe-brand">BRAND</p>
           <h1 class="home__title" id="shoe-name">LOADING...</h1>
           <p class="home__description" id="shoe-desc">
             Collection loading...
           </p>
-          <a href="#" class="home__button" id="buy-btn">VIEW PAIR</a>
+          <button class="home__button" id="buy-btn">VIEW PAIR</button>
         </div>
 
         <div class="home__images">
@@ -73,21 +77,21 @@
         </div>
 
         <div class="home__social">
-          <a href="https://www.instagram.com/thealgothrim/" target="_blank" rel="noopener noreferrer" class="home__social-link">
-            <i class="ri-instagram-fill"></i>
+          <a href="https://www.instagram.com/thealgothrim/" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="Instagram">
+            <i class="ri-instagram-fill" aria-hidden="true"></i>
           </a>
-          <a href="https://www.youtube.com/@Algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link">
-            <i class="ri-youtube-fill"></i>
+          <a href="https://www.youtube.com/@Algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="YouTube">
+            <i class="ri-youtube-fill" aria-hidden="true"></i>
           </a>
-          <a href="https://x.com/algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link">
-            <i class="ri-twitter-x-fill"></i>
+          <a href="https://x.com/algothrim" target="_blank" rel="noopener noreferrer" class="home__social-link" aria-label="X (Twitter)">
+            <i class="ri-twitter-x-fill" aria-hidden="true"></i>
           </a>
         </div>
       </div>
     </section>
   </main>
 
-  <div class="modal" id="image-modal" role="dialog" aria-modal="true" aria-label="Shoe image viewer" aria-hidden="true">
+  <div class="modal" id="image-modal" role="dialog" aria-modal="true" aria-labelledby="modal-img-title" aria-hidden="true">
     <div class="modal__blur-bg"></div>
     <div class="modal__content-image">
       <button class="modal__close" id="close-image-modal" aria-label="Close image viewer">
@@ -98,7 +102,7 @@
     </div>
   </div>
 
-  <div class="modal" id="category-modal" role="dialog" aria-modal="true" aria-label="Browse category" aria-hidden="true">
+  <div class="modal" id="category-modal" role="dialog" aria-modal="true" aria-labelledby="category-title" aria-hidden="true">
     <div class="modal__blur-bg"></div>
     <div class="modal__box">
       <div class="modal__header">

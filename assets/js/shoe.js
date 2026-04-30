@@ -270,10 +270,28 @@ const wardrobe = [
 const swiperWrapper = document.getElementById("swiper-wrapper");
 swiperWrapper.innerHTML = "";
 
-wardrobe.forEach((shoe) => {
+wardrobe.forEach((shoe, index) => {
   const slide = document.createElement("div");
   slide.classList.add("home__article", "swiper-slide");
-  slide.innerHTML = `<img src="${shoe.img}" alt="${shoe.name}" class="home__shoe">`;
+
+  const picture = document.createElement("picture");
+
+  const source = document.createElement("source");
+  source.srcset = shoe.img.replace(".png", ".webp");
+  source.type = "image/webp";
+
+  const img = document.createElement("img");
+  img.src = shoe.img;
+  img.alt = shoe.name.replace(/<br>/g, " ");
+  img.className = "home__shoe";
+  img.loading = index < 3 ? "eager" : "lazy";
+  img.decoding = "async";
+  img.width = 1001;
+  img.height = 886;
+
+  picture.appendChild(source);
+  picture.appendChild(img);
+  slide.appendChild(picture);
   swiperWrapper.appendChild(slide);
 });
 
@@ -355,6 +373,31 @@ swiperShoes.on("slideChange", updateContent);
 updateContent();
 
 /* =========================================
+   FOCUS TRAP UTILITY
+   ========================================= */
+function createFocusTrap(modal) {
+  const FOCUSABLE = 'button:not([disabled]), [href], [tabindex="0"]';
+
+  function handleKeydown(e) {
+    if (e.key !== "Tab") return;
+    const els = [...modal.querySelectorAll(FOCUSABLE)];
+    if (!els.length) return;
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+
+  return {
+    activate() { modal.addEventListener("keydown", handleKeydown); },
+    deactivate() { modal.removeEventListener("keydown", handleKeydown); },
+  };
+}
+
+/* =========================================
    MODAL LOGIC (INTERACTIVITY)
    ========================================= */
 const viewPairBtn = document.getElementById("buy-btn");
@@ -362,16 +405,17 @@ const imageModal = document.getElementById("image-modal");
 const modalImg = document.getElementById("modal-img");
 const modalTitle = document.getElementById("modal-img-title");
 const closeImageModal = document.getElementById("close-image-modal");
+const imageModalTrap = createFocusTrap(imageModal);
 
-viewPairBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+viewPairBtn.addEventListener("click", () => {
   const currentShoe = wardrobe[swiperShoes.realIndex];
-  modalImg.src = currentShoe.img;
+  modalImg.src = currentShoe.img.replace(".png", ".webp");
   modalImg.alt = currentShoe.name.replace(/<br>/g, " ");
   modalTitle.innerHTML = currentShoe.name.replace(/<br>/g, " ");
   imageModal.classList.add("active-modal");
   imageModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  imageModalTrap.activate();
   closeImageModal.focus();
 });
 
@@ -379,6 +423,7 @@ closeImageModal.addEventListener("click", () => {
   imageModal.classList.remove("active-modal");
   imageModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  imageModalTrap.deactivate();
   viewPairBtn.focus();
 });
 
@@ -386,6 +431,7 @@ const catModal = document.getElementById("category-modal");
 const catList = document.getElementById("category-list");
 const catTitle = document.getElementById("category-title");
 const closeCatModal = document.getElementById("close-cat-modal");
+const catModalTrap = createFocusTrap(catModal);
 
 const navSneakers = document.getElementById("nav-sneakers");
 const navBoots = document.getElementById("nav-boots");
@@ -399,13 +445,24 @@ function openCategory(categoryType, title) {
     if (shoe.category === categoryType) {
       const li = document.createElement("li");
       li.classList.add("modal__item");
+      li.setAttribute("role", "button");
+      li.setAttribute("tabindex", "0");
       li.textContent = shoe.name.replace(/<br>/g, " ");
 
-      li.addEventListener("click", () => {
+      const selectShoe = () => {
         swiperShoes.slideToLoop(index);
         catModal.classList.remove("active-modal");
+        catModal.setAttribute("aria-hidden", "true");
         navMenu.classList.remove("show-menu");
         document.body.style.overflow = "";
+      };
+
+      li.addEventListener("click", selectShoe);
+      li.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectShoe();
+        }
       });
 
       catList.appendChild(li);
@@ -415,6 +472,7 @@ function openCategory(categoryType, title) {
   catModal.classList.add("active-modal");
   catModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  catModalTrap.activate();
   closeCatModal.focus();
 }
 
@@ -430,14 +488,17 @@ closeCatModal.addEventListener("click", () => {
   catModal.classList.remove("active-modal");
   catModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  catModalTrap.deactivate();
 });
 
 window.addEventListener("click", (e) => {
   if (e.target.classList.contains("modal__blur-bg")) {
     imageModal.classList.remove("active-modal");
     imageModal.setAttribute("aria-hidden", "true");
+    imageModalTrap.deactivate();
     catModal.classList.remove("active-modal");
     catModal.setAttribute("aria-hidden", "true");
+    catModalTrap.deactivate();
     document.body.style.overflow = "";
   }
 });
@@ -446,8 +507,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     imageModal.classList.remove("active-modal");
     imageModal.setAttribute("aria-hidden", "true");
+    imageModalTrap.deactivate();
     catModal.classList.remove("active-modal");
     catModal.setAttribute("aria-hidden", "true");
+    catModalTrap.deactivate();
     document.body.style.overflow = "";
   }
 });
